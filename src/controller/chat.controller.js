@@ -1,6 +1,6 @@
-import { ChatMessage } from "../models/chatmessage.model.js";
-import { CodeSession } from "../models/codesession.model.js";
-import { User } from "../models/user.model.js";
+import  ChatMessage  from "../model/chatmessage.model.js";
+import { CodeSession } from "../model/codesession.model.js";
+import { User } from "../model/user.model.js";
 
 // Save chat message
 const saveMessage = async (req, res) => {

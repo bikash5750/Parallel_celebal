@@ -1,5 +1,5 @@
-import { User } from "../models/user.model.js";
-import { zodPasswordSchema } from "../models/user.model.js";
+import { User } from "../model/user.model.js";
+import { zodPasswordSchema } from "../model/user.model.js";
 
 // Register
 const registeruser = async (req, res) => {
