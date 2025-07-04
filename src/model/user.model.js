@@ -1,8 +1,8 @@
+// models/User.js
 import mongoose, { Schema } from "mongoose";
 import z from "zod";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import { string } from "zod/v4";
 
 // Mongoose User Schema
 const UserSchema = new mongoose.Schema(
@@ -30,24 +30,18 @@ const UserSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
-    categories: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Category",
-      },
-    ],
     password: {
       type: String,
       required: [true, "Password is required"],
     },
-    refreshtoken :{
-      type : string
-    }
+    refreshtoken: {
+      type: String,
+    },
   },
   { timestamps: true }
 );
 
-//  Pre-save hook for password hashing
+// Pre-save hook for password hashing
 UserSchema.pre("save", async function (next) {
   if (this.isModified("password")) {
     this.password = await bcrypt.hash(this.password, 10);
@@ -55,12 +49,12 @@ UserSchema.pre("save", async function (next) {
   next();
 });
 
-//  Check hashed password
+// Method to check password
 UserSchema.methods.checkPassword = async function (inputPassword) {
   return await bcrypt.compare(inputPassword, this.password);
 };
 
-//  Generate JWT token
+// Method to generate JWT token
 UserSchema.methods.generateJWT = function () {
   return jwt.sign(
     {
@@ -89,9 +83,5 @@ export const zodPasswordSchema = z
     message: "At least one special character required",
   });
 
-
-
-// Export Mongoose model
 const User = mongoose.model("User", UserSchema);
-
-export {User}
+export { User };

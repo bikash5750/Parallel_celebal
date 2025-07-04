@@ -1,14 +1,16 @@
-import express from "express"
-import {app} from "./app.js"
-import config from "./utils/config.js"
-import {connectdb} from "./src/connectdb/connectdb.js"
+import express from "express";
+import { app } from "./app.js";
+import config from "./utils/config.js";
+import { connectdb } from "./src/connectdb/connectdb.js";
 
+const PORT = config.PORT || 3000;
 
-connectdb().then(()=>{
-  app.listen(3000 ,()=>{
-    console.log("your application is running on PORT 3000")
+connectdb()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(` Server is running on http://localhost:${PORT}`);
+    });
   })
-})
-.catch(()=>{
-  console.log("unable to load port")
-})
+  .catch((err) => {
+    console.error(" Failed to connect to database:", err.message);
+  });

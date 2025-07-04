@@ -1,22 +1,24 @@
+// models/ChatMessage.js
 import mongoose from "mongoose";
 
 const ChatMessageSchema = new mongoose.Schema({
   sessionId: {
     type: String,
-    required: true
+    required: true,
   },
   sender: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User"
+    ref: "User",
   },
   message: {
     type: String,
-    required: true
+    required: true,
   },
   timestamp: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
-module.exports = mongoose.model("ChatMessage", ChatMessageSchema);
+const ChatMessage = mongoose.model("ChatMessage", ChatMessageSchema);
+export default ChatMessage;
