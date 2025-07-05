@@ -1,7 +1,8 @@
 import dotenv from "dotenv";
-dotenv.config({ path: "../.env" });
+dotenv.config({ path: "./.env" });
 
-console.log("DB_URI:", process.env.DB_URI);
+
+//console.log("DB_URI:", process.env.DB_URI);
 
 export default {
   DB_URI: process.env.DB_URI,
