@@ -1,5 +1,6 @@
 // models/User.js
 import mongoose, { Schema } from "mongoose";
+import config from "../../utils/config.js";
 import z from "zod";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
@@ -62,9 +63,9 @@ UserSchema.methods.generateJWT = function () {
       username: this.username,
       email: this.email,
     },
-    process.env.ACCESS_TOKEN_SECRET,
+    process.env.REFRESH_TOKEN_SECRET,
     {
-      expiresIn: process.env.ACCESS_TOKEN_EXP,
+      expiresIn: process.env.REFRESH_TOKEN_EXP,
     }
   );
 };
