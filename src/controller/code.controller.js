@@ -16,25 +16,39 @@ const saveCodeVersion = async (req, res) => {
       return res.status(404).json({ msg: "User not found." });
     }
 
-    const session = await CodeSession.findOneAndUpdate(
-      { sessionId },
-      {
-        $push: { versions: { code, updatedBy } },
-        $setOnInsert: { language: language || "javascript", sessionId },
-      },
-      { upsert: true, new: true }
-    );
+    let session = await CodeSession.findOne({ sessionId });
+
+    if (!session) {
+      session = await CodeSession.create({
+        sessionId,
+        createdBy: updatedBy,
+        language: language || "javascript",
+        versions: [{ code, updatedBy }]
+      });
+
+      return res.status(201).json({
+        success: true,
+        message: "Session created and version saved successfully.",
+        sessionId: session.sessionId,
+      });
+    }
+
+    session.versions.push({ code, updatedBy });
+    await session.save();
 
     return res.status(201).json({
       success: true,
       message: "Code version saved successfully.",
       sessionId: session.sessionId,
     });
+
   } catch (err) {
     console.error("Error in saveCodeVersion:", err);
     return res.status(500).json({ error: "Internal server error." });
   }
 };
+
+
 
 // Get all code versions
 const getCodeVersions = async (req, res) => {
