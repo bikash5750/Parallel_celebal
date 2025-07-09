@@ -1,6 +1,6 @@
 const socketHandler = (io) => {
   io.on("connection", (socket) => {
-    console.log("🟢 User connected:", socket.id);
+    console.log("User connected:", socket.id);
 
     // Join a specific code session (room)
     socket.on("join-session", (sessionId) => {
@@ -44,7 +44,7 @@ const socketHandler = (io) => {
     });
 
     socket.on("disconnect", () => {
-      console.log("🔴 User disconnected:", socket.id);
+      console.log(" User disconnected:", socket.id);
       // You could emit a global or room-based "user-disconnected" here if needed
     });
   });
