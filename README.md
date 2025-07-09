@@ -48,5 +48,4 @@ Perfect for collaborative interviews, pair programming, or teaching environments
 
 ---
 
-## 📁 Folder Structure
 
